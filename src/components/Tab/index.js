@@ -51,7 +51,7 @@ export default function Tab() {
             <div>
               <FontAwesomeIcon icon={faGlobe} />
             </div>
-            전체 지역 보기
+            전체 시도보기
           </li>
         </Link>
         <Link to="/bookmark">
