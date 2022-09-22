@@ -38,7 +38,7 @@ export default function Tab() {
   return (
     <TabContainer>
       <TabList>
-        <Link to="/">
+        <Link to="/myregion">
           <li>
             <div>
               <FontAwesomeIcon icon={faLocationDot} />

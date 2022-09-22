@@ -1,10 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import bookmarkSlice from "./BookMark";
 import dataSlice from "./data";
+import bookmarkSlice from "./bookmark";
 
 const rootReducer = combineReducers({
-  data: dataSlice,
-  bookmark: bookmarkSlice,
+  data: dataSlice.reducer,
+  bookmark: bookmarkSlice.reducer,
 });
 
 export default rootReducer;
