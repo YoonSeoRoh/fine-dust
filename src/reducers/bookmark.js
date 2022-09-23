@@ -20,4 +20,4 @@ export const bookmarkSlice = createSlice({
 
 export const { addBookmark, removeBookmark, removeAllBookmark } =
   bookmarkSlice.actions;
-export default bookmarkSlice;
+export default bookmarkSlice.reducer;

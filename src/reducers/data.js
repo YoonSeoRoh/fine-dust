@@ -10,19 +10,10 @@ const initialState = {
 export const dataSlice = createSlice({
   name: "data",
   initialState,
-  extraReducers: {
-    [getDataThunk.pending](state, action) {
-      state.loading = true;
-    },
-    [getDataThunk.fulfilled](state, action) {
-      state.loading = false;
-      state.data = action.payload;
-    },
-    [getDataThunk.rejected](state, action) {
-      state.loading = false;
-      state.error = action.error;
-    },
+  reducers: {
+    getRegion: (state, action) => {},
   },
+  extraReducers: {},
 });
 
-export default dataSlice;
+export default dataSlice.reducer;

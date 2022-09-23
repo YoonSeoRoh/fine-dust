@@ -1,6 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import { emailReg, pwdReg } from "../libs/constants";
+import useInput from "../hooks/useInput";
+import { loginThunk } from "../actions/user";
+
+import Modal from "../components/Modal";
 
 const LoginContainer = styled.section`
   height: 100vh;
@@ -17,7 +24,7 @@ const Title = styled.h1`
   color: #333;
 `;
 const Form = styled.form`
-  width: 40%;
+  width: 42%;
   margin: 0 auto;
 `;
 const Input = styled.div`
@@ -57,66 +64,76 @@ const SignUpButton = styled.button`
   color: #3a44b7;
 `;
 
+const ModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [idValid, setIdValid] = useState(false);
-  const [pwdValid, setPwdValid] = useState(false);
+  const { loginLoading, loginDone, loginData } = useSelector(
+    (state) => state.user
+  );
 
-  const [id, setId] = useState("");
-  const [pwd, setPwd] = useState("");
+  const email = useInput("", emailReg);
+  const password = useInput("", pwdReg);
 
-  const [idMsg, setIdMsg] = useState("");
-  const [pwdMsg, setPwdMsg] = useState("");
+  const [modal, setModal] = useState(false);
+  const [msg, setMsg] = useState("");
 
-  const handleId = (e) => {
-    setId(e.target.value);
-    const idReg = /^[a-zA-Z0-9_-]{4,12}$/;
-    if (!idReg.test(e.target.value)) {
-      setIdMsg("한글, 영문(대/소), 숫자 4-12자리 내로 입력해주세요.");
-    } else {
-      setIdMsg("");
-      setIdValid(true);
+  useEffect(() => {
+    if (loginDone) {
+      if (loginData.user) {
+        navigate("/myregion");
+      } else {
+        setModal(true);
+        setMsg(loginData);
+      }
     }
-  };
-  const handlePwd = (e) => {
-    setPwd(e.target.value);
-    const pwdReg =
-      /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{4,12}$/;
-    if (!pwdReg.test(e.target.value)) {
-      setPwdMsg("특수문자, 영문(대/소), 숫자 4-12자리 내로 입력해주세요.");
-    } else {
-      setPwdMsg("");
-      setPwdValid(true);
-    }
-  };
-  const handleSubmit = () => {
-    navigate("/myregion");
+  }, [loginDone, loginData, navigate]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginThunk({ email: email.value, password: password.value }));
   };
   return (
     <LoginContainer>
       <Title>로그인</Title>
       <Form>
         <Input>
-          <label>아이디</label>
+          <label>이메일</label>
           <input
-            type="text"
-            placeholder="아이디를 입력하세요"
-            onChange={handleId}
+            type="email"
+            placeholder="이메일을 입력하세요"
+            value={email.value}
+            onChange={email.onChange}
           />
-          <Validate>{idMsg}</Validate>
+          <Validate>{!email.valid && "이메일 양식에 맞지 않습니다."}</Validate>
         </Input>
         <Input>
           <label>비밀번호</label>
           <input
             type="password"
             placeholder="비밀번호를 입력하세요"
-            onChange={handlePwd}
+            value={password.value}
+            onChange={password.onChange}
           />
-          <Validate>{pwdMsg}</Validate>
+          <Validate>
+            {!password.valid &&
+              "특수문자, 영문자, 숫자 4-12자리 내로 입력해주세요."}
+          </Validate>
         </Input>
         <LoginButton
-          disabled={!idValid && !pwdValid}
+          disabled={!email.valid && !password.valid}
           type="submit"
           onClick={handleSubmit}
         >
@@ -124,6 +141,11 @@ export default function Login() {
         </LoginButton>
       </Form>
       <SignUpButton onClick={() => navigate("/signup")}>회원가입</SignUpButton>
+      {modal && (
+        <ModalContainer>
+          <Modal message={msg} closeModal={() => setModal(!modal)} />
+        </ModalContainer>
+      )}
     </LoginContainer>
   );
 }

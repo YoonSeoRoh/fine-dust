@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { CITY_DATA, LOC_DATA } from "./menulist";
@@ -19,14 +20,22 @@ const Select = styled.select`
 `;
 
 export default function DropDownMenu() {
+  const dispatch = useDispatch();
+
   const [city, setCity] = useState("서울");
   const [loc, setLoc] = useState("");
+
+  // useEffect(() => {
+  //   dispatch()
+  // }, [city, loc])
+
   const handleCityChange = (e) => {
     setCity(e.target.value);
   };
   const handleLocChange = (e) => {
     setLoc(e.target.value);
   };
+
   return (
     <MenuContainer>
       <Select onChange={handleCityChange} defaultValue={"서울"}>

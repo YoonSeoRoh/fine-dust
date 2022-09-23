@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "email": "test1234@naver.com",
+      "password": "$2a$10$Qt/w98DANxG31AgGEJSo8.y7GiFyj5ysh.GWB3Lb4KBSN.yA5zJJe",
+      "location": "서울 양천구",
+      "bookmarkList": [],
+      "id": 1
+    }
+  ]
+}
