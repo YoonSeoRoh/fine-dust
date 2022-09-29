@@ -14,6 +14,7 @@ const TabContainer = styled.section`
   position: fixed;
   bottom: 0;
   padding: 0 20px;
+  background-color: white;
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3);
 `;
 

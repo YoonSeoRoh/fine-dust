@@ -75,30 +75,38 @@ export default function SignUp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { signupLoading, signupDone, signupData } = useSelector(
-    (state) => state.user
-  );
+  const { signupData } = useSelector((state) => state.user);
 
   const email = useInput("", emailReg);
   const password = useInput("", pwdReg);
 
   const [modal, setModal] = useState(false);
   const [msg, setMsg] = useState("");
+  const [city, setCity] = useState("서울");
+
+  const getCity = (name) => {
+    setCity(name);
+  };
 
   useEffect(() => {
-    if (signupDone) {
-      if (signupData.user) {
-        navigate("/myregion");
-      } else {
-        setModal(true);
-        setMsg(signupData);
+    if (signupData) {
+      setModal(true);
+      setMsg("회원가입이 완료되었습니다.");
+      if (!modal) {
+        navigate("/");
       }
     }
-  }, [signupDone, signupData, navigate]);
+  }, [modal, navigate, signupData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signupThunk({ email: email.value, password: password.value }));
+    dispatch(
+      signupThunk({
+        email: email.value,
+        password: password.value,
+        location: city,
+      })
+    );
   };
   return (
     <LoginContainer>
@@ -120,14 +128,14 @@ export default function SignUp() {
             type="password"
             placeholder="비밀번호를 입력하세요"
             onChange={password.onChange}
-            value={email.value}
+            value={password.value}
           />
           <Validate>
             {!password.valid &&
               "특수문자, 영문자, 숫자 4-12자리 내로 입력해주세요."}
           </Validate>
         </Input>
-        <DropDownMenu />
+        <DropDownMenu getCity={getCity} />
         <LoginButton
           disabled={!email.valid && !password.valid}
           type="submit"

@@ -3,17 +3,22 @@ import { getDataThunk } from "../actions/data";
 
 const initialState = {
   loading: false,
-  data: null,
-  error: null,
+  dustData: null,
 };
 
 export const dataSlice = createSlice({
   name: "data",
-  initialState,
-  reducers: {
-    getRegion: (state, action) => {},
+  initialState: initialState,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getDataThunk.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getDataThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.dustData = action.payload;
+      });
   },
-  extraReducers: {},
 });
 
 export default dataSlice.reducer;

@@ -1,23 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  getBookMarkThunk,
+  addBookMarkThunk,
+  deleteBookMarkThunk,
+} from "../actions/bookmark";
+
+const initialState = {
+  bookmarkData: [],
+  getBookMarkLoading: false,
+  getBookMarkDone: false,
+  addBookMarkLoading: false,
+  addBookMarkDone: false,
+  deleteBookMarkLoading: false,
+  deleteBookMarkDone: false,
+};
 
 export const bookmarkSlice = createSlice({
   name: "bookmark",
-  initialState: [],
-  reducers: {
-    addBookmark: (state, action) => {
-      const nextId =
-        state.length !== 0 ? Math.max(...state.map((item) => item.id)) + 1 : 0;
-      state.push({ id: nextId, data: action.payload });
-    },
-    removeBookmark: (state, action) => {
-      return state.filter((item) => item.id !== action.payload);
-    },
-    removeAllBookmark: (state, action) => {
-      return (state = []);
-    },
+  initialState: initialState,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getBookMarkThunk.pending, (state) => {
+        state.getBookMarkLoading = true;
+        state.getBookMarkDone = false;
+      })
+      .addCase(getBookMarkThunk.fulfilled, (state, action) => {
+        state.getBookMarkLoading = false;
+        state.getBookMarkDone = true;
+        state.bookmarkData = action.payload;
+      })
+      .addCase(addBookMarkThunk.pending, (state) => {
+        state.addBookMarkLoading = true;
+        state.addBookMarkDone = false;
+      })
+      .addCase(addBookMarkThunk.fulfilled, (state, action) => {
+        state.addBookMarkLoading = false;
+        state.addBookMarkDone = true;
+      })
+      .addCase(deleteBookMarkThunk.pending, (state) => {
+        state.deleteBookMarkLoading = true;
+        state.deleteBookMarkDone = false;
+      })
+      .addCase(deleteBookMarkThunk.fulfilled, (state, action) => {
+        state.deleteBookMarkLoading = false;
+        state.deleteBookMarkDone = true;
+      });
   },
 });
 
-export const { addBookmark, removeBookmark, removeAllBookmark } =
-  bookmarkSlice.actions;
 export default bookmarkSlice.reducer;

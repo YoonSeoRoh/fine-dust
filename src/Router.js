@@ -6,7 +6,6 @@ import SignUp from "./pages/SignUp";
 import MyRegion from "./pages/MyRegion";
 import EntireRegions from "./pages/EntireRegions";
 import BookMark from "./pages/BookMark";
-import Test from "./pages/test";
 
 export const Router = () => {
   return (
@@ -19,7 +18,6 @@ export const Router = () => {
         </Route>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );

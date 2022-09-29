@@ -16,15 +16,11 @@ export const loginThunk = createAsyncThunk("LOGIN", async (formData) => {
 export const signupThunk = createAsyncThunk("SIGN_UP", async (formData) => {
   const response = await fetch("http://localhost:8888/register", {
     method: "POST",
-    header: {
+    headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      email: formData.email,
-      password: formData.password,
-      location: formData.location,
-    }),
+    body: JSON.stringify(formData),
   });
   const data = await response.json();
   return data;

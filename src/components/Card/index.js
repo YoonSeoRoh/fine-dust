@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import { GRADE_DATA } from "./gradeList";
+
 import BookMarkBtn from "../BookMarkBtn";
 
 const CardContainer = styled.div`
-  width: 400px;
+  width: 60%;
   height: 200px;
   border-radius: 10px;
-  background-color: orange;
+  background-color: ${(props) => props.pm10Grade};
   margin: 10px;
   color: #fff;
 `;
@@ -27,7 +30,7 @@ const LocationBlock = styled.div`
   }
 `;
 const LevelBlock = styled.div`
-  width: 120px;
+  width: 140px;
   height: 80px;
   border-radius: 10px;
   background-color: #fff;
@@ -36,8 +39,8 @@ const LevelBlock = styled.div`
   justify-content: center;
   align-items: center;
   h1 {
-    color: orange;
-    font-size: 40px;
+    color: ${(props) => props.pm10Grade};
+    font-size: 30px;
     font-weight: 540;
   }
 `;
@@ -48,22 +51,41 @@ const InfoBlock = styled.div`
   }
 `;
 
-export default function Card() {
+export default function Card(props) {
+  const { dataTime, stationName, sidoName, pm10Value, pm10Grade } = props.data;
+  const [name, setName] = useState("알수없음");
+  const [color, setColor] = useState("#6d6a73");
+
+  useEffect(() => {
+    GRADE_DATA.forEach((item) => {
+      if (item.grade === parseInt(pm10Grade)) {
+        setName(item.value);
+        setColor(item.color);
+      }
+    });
+  }, [pm10Grade]);
+
   return (
-    <CardContainer>
+    <CardContainer pm10Grade={color}>
       <LocationBlock>
         <div>
-          <h3>성북구</h3>
-          <span>서울</span>
+          <h3>{stationName}</h3>
+          <span>{sidoName}</span>
         </div>
-        <BookMarkBtn />
+        {!props.isMine && (
+          <BookMarkBtn
+            id={props.id}
+            data={props.data}
+            isChecked={props.isChecked}
+          />
+        )}
       </LocationBlock>
-      <LevelBlock>
-        <h1>보통</h1>
+      <LevelBlock pm10Grade={color}>
+        <h1>{name}</h1>
       </LevelBlock>
       <InfoBlock>
-        <p>미세먼지 수치 : 37</p>
-        <p>(2022-05-02 09:00 기준)</p>
+        <p>미세먼지 수치 : {pm10Value}</p>
+        <p>({dataTime} 기준)</p>
       </InfoBlock>
     </CardContainer>
   );

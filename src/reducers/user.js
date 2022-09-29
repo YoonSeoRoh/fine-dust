@@ -13,10 +13,9 @@ const initialState = {
 export const userSlice = createSlice({
   name: "user",
   initialState: initialState,
-  reducer: {
-    getRegion: (state, action) => {},
-    logout: (state, action) => {
-      state.value = "";
+  reducers: {
+    logout: (state) => {
+      state.loginDone = false;
     },
   },
   extraReducers: (builder) => {

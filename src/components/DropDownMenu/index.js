@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { CITY_DATA, LOC_DATA } from "./menulist";
+import { CITY_DATA } from "./menuList";
 
 const MenuContainer = styled.section`
   padding: 10px 0 0 0;
@@ -19,42 +18,22 @@ const Select = styled.select`
   }
 `;
 
-export default function DropDownMenu() {
-  const dispatch = useDispatch();
-
-  const [city, setCity] = useState("서울");
-  const [loc, setLoc] = useState("");
-
-  // useEffect(() => {
-  //   dispatch()
-  // }, [city, loc])
+export default function DropDownMenu(props) {
+  const [city, setCity] = useState("");
 
   const handleCityChange = (e) => {
     setCity(e.target.value);
-  };
-  const handleLocChange = (e) => {
-    setLoc(e.target.value);
+    props.getCity(e.target.value);
   };
 
   return (
     <MenuContainer>
-      <Select onChange={handleCityChange} defaultValue={"서울"}>
+      <Select onChange={handleCityChange} selected={city}>
         {CITY_DATA.map((option) => (
           <option key={parseInt(option.id)} value={option.value}>
             {option.value}
           </option>
         ))}
-      </Select>
-      <Select onChange={handleLocChange}>
-        {LOC_DATA.map((option, index) => {
-          if (option.value === city) {
-            return (
-              <option key={index} value={option.name}>
-                {option.name}
-              </option>
-            );
-          }
-        })}
       </Select>
     </MenuContainer>
   );

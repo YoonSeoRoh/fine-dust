@@ -80,9 +80,7 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loginLoading, loginDone, loginData } = useSelector(
-    (state) => state.user
-  );
+  const { loginDone, loginData } = useSelector((state) => state.user);
 
   const email = useInput("", emailReg);
   const password = useInput("", pwdReg);

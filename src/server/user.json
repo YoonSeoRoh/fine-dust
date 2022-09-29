@@ -3,9 +3,115 @@
     {
       "email": "test1234@naver.com",
       "password": "$2a$10$Qt/w98DANxG31AgGEJSo8.y7GiFyj5ysh.GWB3Lb4KBSN.yA5zJJe",
-      "location": "서울 양천구",
-      "bookmarkList": [],
+      "location": "서울",
       "id": 1
+    },
+    {
+      "email": "test1111@gmail.com",
+      "password": "$2a$10$vyl8AoGAlPWkXHZtp2RZP.qkAg5446PUyilq652Fgf3Jd8TfKwNzu",
+      "location": "부산",
+      "id": 2
+    },
+    {
+      "email": "test0000@naver.com",
+      "password": "$2a$10$wFULQOcLtWjo6uiUYq5QHuPLvryOnm907hthEY2OiWh5tkX5hoZGe",
+      "location": "제주",
+      "id": 3
+    },
+    {
+      "email": "test123@gmail.com",
+      "password": "$2a$10$8iar/BCi7.hC2IAz1yvSxOI7SnpFHBILpAu2NV5W.E.1wmEp8UHra",
+      "location": "강원",
+      "id": 4
+    }
+  ],
+  "bookmark": [
+    {
+      "email": "test1234@naver.com",
+      "data": {
+        "so2Grade": "1",
+        "coFlag": null,
+        "khaiValue": "72",
+        "so2Value": "0.002",
+        "coValue": "0.4",
+        "pm25Flag": null,
+        "pm10Flag": null,
+        "o3Grade": "2",
+        "pm10Value": "28",
+        "khaiGrade": "2",
+        "pm25Value": "15",
+        "sidoName": "서울",
+        "no2Flag": null,
+        "no2Grade": "2",
+        "o3Flag": null,
+        "pm25Grade": "1",
+        "so2Flag": null,
+        "dataTime": "2022-09-28 18:00",
+        "coGrade": "1",
+        "no2Value": "0.036",
+        "stationName": "중구",
+        "pm10Grade": "1",
+        "o3Value": "0.056"
+      },
+      "id": 1
+    },
+    {
+      "email": "test1234@naver.com",
+      "data": {
+        "so2Grade": "1",
+        "coFlag": null,
+        "khaiValue": "105",
+        "so2Value": "0.004",
+        "coValue": "0.8",
+        "pm25Flag": null,
+        "pm10Flag": null,
+        "o3Grade": "2",
+        "pm10Value": "71",
+        "khaiGrade": "3",
+        "pm25Value": "48",
+        "sidoName": "서울",
+        "no2Flag": null,
+        "no2Grade": "2",
+        "o3Flag": null,
+        "pm25Grade": "3",
+        "so2Flag": null,
+        "dataTime": "2022-09-29 13:00",
+        "coGrade": "1",
+        "no2Value": "0.042",
+        "stationName": "종로구",
+        "pm10Grade": "2",
+        "o3Value": "0.057"
+      },
+      "id": 2
+    },
+    {
+      "email": "test1234@naver.com",
+      "data": {
+        "so2Grade": "1",
+        "coFlag": null,
+        "khaiValue": "151",
+        "so2Value": "0.004",
+        "coValue": "0.9",
+        "pm25Flag": null,
+        "pm10Flag": null,
+        "o3Grade": "2",
+        "pm10Value": "83",
+        "khaiGrade": "3",
+        "pm25Value": "58",
+        "sidoName": "서울",
+        "no2Flag": null,
+        "no2Grade": "2",
+        "o3Flag": null,
+        "pm25Grade": "3",
+        "so2Flag": null,
+        "dataTime": "2022-09-29 13:00",
+        "coGrade": "1",
+        "no2Value": "0.051",
+        "stationName": "청계천로",
+        "pm10Grade": "2",
+        "o3Value": "0.046"
+      },
+      "id": 3
     }
   ]
 }
